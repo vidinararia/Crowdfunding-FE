@@ -13,7 +13,11 @@ export default function Navbar() {
   };
 
   const handleLogin = () => {
-    navigate("/Login");
+    navigate("/login");
+  };
+
+  const handleRegister = () => {
+    navigate("/register");
   };
 
   return (
@@ -35,7 +39,7 @@ export default function Navbar() {
         >
           <li className="md:ml-8 text-xl md:my-0 my-7"></li>
           <ButtonPrimary title={"Login"} onClick={handleLogin} />
-          <ButtonSecondary title={"Register"} />
+          <ButtonSecondary title={"Register"} onClick={handleRegister} />
         </ul>
       </div>
     </div>
