@@ -1,7 +1,5 @@
 import { React, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ButtonPrimary } from "../button-primary/ButtonPrimary";
-import { ButtonSecondary } from "../button-secondary/ButtonSecondary";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -32,12 +30,12 @@ export default function Navbar() {
         <div className="font-bold text-2xl cursor-pointer flex items-center text-white">
           <Link to={"/"}>Crowdfunding</Link>
         </div>
-        <div
+        <button
           className="text-3xl text-white absolute right-8 top-6 cursor-pointer md:hidden"
           onClick={handleOpen}
         >
           <ion-icon name={open ? "close" : "menu"}></ion-icon>
-        </div>
+        </button>
         <ul
           className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-green-500 md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-8 transition-all duration-500 ease-in ${
             open ? "top-10" : "top-[-490px]"
@@ -53,8 +51,18 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
-          <ButtonPrimary title={"Login"} onClick={handleLogin} />
-          <ButtonSecondary title={"Register"} onClick={handleRegister} />
+          <button
+            className="bg-transparent hover:bg-white border border-white hover:border-transparent text-white hover:text-black py-2 px-6 rounded-md font-bold md:ml-6 transition-all"
+            onClick={handleLogin}
+          >
+            Login
+          </button>
+          <button
+            className="bg-teal-600 text-white hover:shadow-md py-2 px-6 rounded-md font-bold md:ml-4 ml-4 transition-all"
+            onClick={handleRegister}
+          >
+            Register
+          </button>
         </ul>
       </div>
     </div>

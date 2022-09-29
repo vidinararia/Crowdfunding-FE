@@ -6,17 +6,19 @@ import MyProject from "./page/my-project/MyProject";
 import Home from "./page/home/Home";
 import Login from "./page/login/Login";
 import Register from "./page/register/Register";
+import CreateProject from "./page/create-project/CreateProject";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<Home />} /> */}
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} /> */}
+        <Route path="/register" element={<Register />} />
         <Route path="/" element={<AllProject />} />
         <Route path="/my-project" element={<MyProject />} />
         <Route path="/history" element={<History />} />
+        <Route path="/create-project" element={<CreateProject />} />
       </Routes>
     </BrowserRouter>
   );
