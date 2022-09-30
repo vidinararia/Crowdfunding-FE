@@ -52,13 +52,13 @@ export default function Navbar() {
             </li>
           ))}
           <button
-            className="bg-transparent hover:bg-white border border-white hover:border-transparent text-white hover:text-black py-2 px-6 rounded-md font-bold md:ml-6 transition-all"
+            className="hidden bg-transparent hover:bg-white border border-white hover:border-transparent text-white hover:text-black py-2 px-6 rounded-md font-bold md:ml-6 transition-all"
             onClick={handleLogin}
           >
             Login
           </button>
           <button
-            className="bg-teal-600 text-white hover:shadow-md py-2 px-6 rounded-md font-bold md:ml-4 ml-4 transition-all"
+            className="hidden bg-teal-600 text-white hover:shadow-md py-2 px-6 rounded-md font-bold md:ml-4 ml-4 transition-all"
             onClick={handleRegister}
           >
             Register

@@ -7,6 +7,7 @@ import Home from "./page/home/Home";
 import Login from "./page/login/Login";
 import Register from "./page/register/Register";
 import CreateProject from "./page/create-project/CreateProject";
+import DetailProject from "./page/detail-project/DetailProject";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<AllProject />} />
+        <Route path="/detail-project/:id" element={<DetailProject />} />
         <Route path="/my-project" element={<MyProject />} />
         <Route path="/history" element={<History />} />
         <Route path="/create-project" element={<CreateProject />} />

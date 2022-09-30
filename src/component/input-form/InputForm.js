@@ -1,6 +1,13 @@
 import React from "react";
 
-export const InputForm = ({ label, type, placeholder, value, onChange }) => {
+export const InputForm = ({
+  label,
+  type,
+  placeholder,
+  value,
+  onChange,
+  name,
+}) => {
   return (
     <div>
       <label className="text-gray-500">{label}</label>
@@ -10,6 +17,7 @@ export const InputForm = ({ label, type, placeholder, value, onChange }) => {
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        name={name}
       />
     </div>
   );

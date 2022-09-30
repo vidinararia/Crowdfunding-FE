@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputForm } from "../../component/input-form/InputForm";
 
 export default function CreateProject() {
+  const formData = {
+    name: "",
+    target: 0,
+    startDate: "",
+    endDate: "",
+  };
+
+  const [data, setData] = useState(formData);
+
   let navigate = useNavigate();
 
   const handleBack = () => {
     navigate(-1);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
   };
 
   return (
@@ -25,15 +39,37 @@ export default function CreateProject() {
           <p className="text-gray-400 mb-5">
             Fill this form to create project.
           </p>
-          <InputForm label={"Name"} placeholder={"Name"} type={"text"} />
+          <InputForm
+            label={"Name"}
+            placeholder={"Name"}
+            type={"text"}
+            name={"name"}
+            value={data.name}
+            onChange={handleChange}
+          />
           <InputForm
             label={"Target"}
             placeholder={"Rp. 1.000.000"}
             type={"text"}
+            name={"target"}
+            value={data.target}
+            onChange={handleChange}
           />
           <div className="md:grid md:grid-cols-2 md:gap-2">
-            <InputForm label={"Start Date"} type={"date"} />
-            <InputForm label={"End Date"} type={"date"} />
+            <InputForm
+              label={"Start Date"}
+              type={"date"}
+              name={"startDate"}
+              value={data.startDate}
+              onChange={handleChange}
+            />
+            <InputForm
+              label={"End Date"}
+              type={"date"}
+              name={"endDate"}
+              value={data.endDate}
+              onChange={handleChange}
+            />
           </div>
           <button className="w-full bg-green-500 py-2 text-lg text-white font-bold rounded-xl mt-3 hover:bg-green-400 transition-all">
             Create
