@@ -1,24 +1,41 @@
+import { useQuery } from "@apollo/client";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { InputForm } from "../../component/input-form/InputForm";
+import { GET_DATA_PROJECT_BY_ID } from "../../graphql/query/Query";
 
 export default function DetailProject() {
   const formData = {
     total: 0,
   };
 
-  const [data, setData] = useState(formData);
-  const IDRConvert = Intl.NumberFormat("id-ID");
-
   let navigate = useNavigate();
+
+  const [donate, setDonate] = useState(formData);
+  const IDRConvert = Intl.NumberFormat("id-ID");
+  const params = useParams();
+  const { id } = params;
+  const { loading, error, data } = useQuery(GET_DATA_PROJECT_BY_ID, {
+    variables: { id },
+  });
+
+  const col = data?.project_by_pk;
+
+  if (isNaN(id)) {
+    return "Not Found";
+  }
+
+  if (loading) {
+    return "Loading...";
+  }
+
+  if (error) {
+    alert("Error");
+    return null;
+  }
 
   const handleBack = () => {
     navigate(-1);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData({ ...data, [name]: value });
   };
 
   return (
@@ -33,23 +50,23 @@ export default function DetailProject() {
       </div>
       <div className="flex items-center justify-center md:p-0 bg-gray-200">
         <div className="bg-white px-5 pt-10 pb-5 md:px-5 rounded-xl shadow-md">
-          <h1 className="text-3xl font-bold mb-2">Project Title</h1>
+          <h1 className="text-3xl font-bold mb-2">{col.name}</h1>
           <div className="md:grid md:grid-cols-2 md:gap-3 gap-0">
             <h1 className="mb-1">
               <div className="font-semibold text-gray-400">Start Date:</div>
-              01/01/2020
+              {col.startdate}
             </h1>
             <h1 className="mb-1">
               <div className="font-semibold text-gray-400">Dateline:</div>
-              01/02/2020
+              {col.dateline}
             </h1>
             <h1 className="mb-1">
               <div className="font-semibold text-gray-400">Target:</div>
-              {IDRConvert.format("100000")}
+              {"Rp. " + IDRConvert.format(col.target)}
             </h1>
             <h1 className="mb-1">
               <div className="font-semibold text-gray-400">Total:</div>
-              {IDRConvert.format("0")}
+              {"Rp. " + IDRConvert.format(col.total)}
             </h1>
           </div>
           <p className="text-gray-400 mt-3 mb-2">
@@ -60,8 +77,8 @@ export default function DetailProject() {
             name={"total"}
             label={"Donate"}
             placeholder={"Rp. 10.000"}
-            value={data.total}
-            onChange={handleChange}
+            value={donate.total}
+            onChange={[]}
           />
           <button className="w-full bg-green-500 py-2 text-lg text-white font-bold rounded-xl mt-3 hover:bg-green-400 transition-all">
             Donate

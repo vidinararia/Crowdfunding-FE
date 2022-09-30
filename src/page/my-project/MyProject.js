@@ -2,23 +2,22 @@ import React, { useState } from "react";
 import { Table } from "../../component/table/Table";
 import Navbar from "../../component/navbar/Navbar";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { GET_DATA_PROJECT } from "../../graphql/query/Query";
 
 export default function MyProject() {
   let navigate = useNavigate();
 
-  const [data, setData] = useState([
-    {
-      name: "project1",
-      target: "100000",
-      total: "0",
-      startdate: "01/01/2020",
-      dateline: "01/02/2020",
-    },
-  ]);
+  const { loading, error, data } = useQuery(GET_DATA_PROJECT);
 
-  const handleDetail = (id) => {
-    navigate(`/detail-project/${id}`);
-  };
+  if (loading) {
+    return "Loading...";
+  }
+
+  if (error) {
+    alert("Error");
+    return null;
+  }
 
   const column = [
     { field: "name", header: "Name" },
@@ -43,7 +42,6 @@ export default function MyProject() {
             classDelete={
               "py-1 px-3 bg-red-400 hover:bg-red-500 hover:shadow text-white rounded ml-1 transition-all"
             }
-            handleDetail={handleDetail}
           />
         </div>
       </div>
