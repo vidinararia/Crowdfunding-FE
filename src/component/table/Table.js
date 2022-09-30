@@ -4,6 +4,7 @@ export const Table = ({
   column,
   data,
   classDelete,
+  classView,
   handleDetail,
   handleDelete,
 }) => {
@@ -44,10 +45,7 @@ export const Table = ({
                 {col.dateline}
               </td>
               <td className="w-52 text-center p-2">
-                <button
-                  className="py-1 px-3 bg-blue-300 hover:bg-blue-500 hover:shadow text-white rounded transition-all"
-                  onClick={handleDetail}
-                >
+                <button className={classView} onClick={handleDetail}>
                   View
                 </button>
                 <button className={classDelete} onClick={handleDelete}>

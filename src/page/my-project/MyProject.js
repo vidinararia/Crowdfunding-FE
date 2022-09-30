@@ -37,6 +37,9 @@ export default function MyProject() {
           <Table
             column={column}
             data={data}
+            classView={
+              "py-1 px-3 bg-blue-300 hover:bg-blue-500 hover:shadow text-white rounded transition-all"
+            }
             classDelete={
               "py-1 px-3 bg-red-400 hover:bg-red-500 hover:shadow text-white rounded ml-1 transition-all"
             }
