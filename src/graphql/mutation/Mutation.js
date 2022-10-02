@@ -15,3 +15,12 @@ export const DELETE_DATA_PROJECT_BY_ID = gql`
     }
   }
 `;
+
+export const UPDATE_DATA_PROJECT_BY_ID = gql`
+  mutation MyMutation($id: Int!, $total: numeric = 0) {
+    update_project_by_pk(pk_columns: { id: $id }, _inc: { total: $total }) {
+      id
+      total
+    }
+  }
+`;

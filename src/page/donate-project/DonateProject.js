@@ -1,23 +1,27 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { InputForm } from "../../component/input-form/InputForm";
-import { GET_DATA_PROJECT_BY_ID } from "../../graphql/query/Query";
+import { UPDATE_DATA_PROJECT_BY_ID } from "../../graphql/mutation/Mutation";
+import {
+  GET_DATA_PROJECT,
+  GET_DATA_PROJECT_BY_ID,
+} from "../../graphql/query/Query";
 
 export default function DonateProject() {
-  const formData = {
-    total: 0,
-  };
-
   let navigate = useNavigate();
 
-  const [donate, setDonate] = useState(formData);
+  const [donate, setDonate] = useState({ total: 0 });
   const IDRConvert = Intl.NumberFormat("id-ID");
   const params = useParams();
   const { id } = params;
   const { loading, error, data } = useQuery(GET_DATA_PROJECT_BY_ID, {
     variables: { id },
   });
+  const [updateTotal, { loading: loadingUpdate }] = useMutation(
+    UPDATE_DATA_PROJECT_BY_ID,
+    { refetchQueries: [GET_DATA_PROJECT] }
+  );
 
   const col = data?.project_by_pk;
 
@@ -25,7 +29,7 @@ export default function DonateProject() {
     return "Not Found";
   }
 
-  if (loading) {
+  if (loading || loadingUpdate) {
     return "Loading...";
   }
 
@@ -36,6 +40,20 @@ export default function DonateProject() {
 
   const handleBack = () => {
     navigate(-1);
+  };
+
+  const handleChange = (e) => {
+    setDonate(e.target.value);
+  };
+
+  const handleDonate = (e) => {
+    e.preventDefault();
+    updateTotal({
+      variables: {
+        id: col.id,
+        total: donate.total,
+      },
+    });
   };
 
   return (
@@ -82,9 +100,12 @@ export default function DonateProject() {
             label={"Donate"}
             placeholder={"Rp. 10.000"}
             value={donate.total}
-            onChange={[]}
+            onChange={handleChange}
           />
-          <button className="w-full bg-green-500 py-2 text-lg text-white font-bold rounded-xl mt-3 hover:bg-green-400 transition-all">
+          <button
+            onClick={handleDonate}
+            className="w-full bg-green-500 py-2 text-lg text-white font-bold rounded-xl mt-3 hover:bg-green-400 transition-all"
+          >
             Donate
           </button>
         </div>
