@@ -1,17 +1,11 @@
 import { useQuery } from "@apollo/client";
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { InputForm } from "../../component/input-form/InputForm";
 import { GET_DATA_PROJECT_BY_ID } from "../../graphql/query/Query";
 
 export default function DetailProject() {
-  const formData = {
-    total: 0,
-  };
-
   let navigate = useNavigate();
 
-  const [donate, setDonate] = useState(formData);
   const IDRConvert = Intl.NumberFormat("id-ID");
   const params = useParams();
   const { id } = params;

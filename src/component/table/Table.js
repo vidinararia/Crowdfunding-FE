@@ -1,5 +1,8 @@
+import { useMutation } from "@apollo/client";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { DELETE_DATA_PROJECT_BY_ID } from "../../graphql/mutation/Mutation";
+import { GET_DATA_PROJECT } from "../../graphql/query/Query";
 
 export const Table = ({
   column,
@@ -8,9 +11,17 @@ export const Table = ({
   deleteHidden,
   donateHidden,
 }) => {
+  let navigate = useNavigate();
+
   const IDRConvert = Intl.NumberFormat("id-ID");
 
-  let navigate = useNavigate();
+  const [deleteProject, { loading }] = useMutation(DELETE_DATA_PROJECT_BY_ID, {
+    refetchQueries: [GET_DATA_PROJECT],
+  });
+
+  if (loading) {
+    return "Loading...";
+  }
 
   return (
     <div className="overflow-auto shadow">
@@ -56,6 +67,13 @@ export const Table = ({
                 <button
                   hidden={deleteHidden}
                   className="py-1 px-3 bg-red-400 hover:bg-red-500 hover:shadow text-white rounded ml-1 transition-all"
+                  onClick={() => {
+                    deleteProject({
+                      variables: {
+                        id: col.id,
+                      },
+                    });
+                  }}
                 >
                   Delete
                 </button>
