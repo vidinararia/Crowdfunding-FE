@@ -1,19 +1,29 @@
+import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputForm } from "../../component/input-form/InputForm";
+import { INSERT_DATA_PROJECT_BY_ID } from "../../graphql/mutation/Mutation";
+import { GET_DATA_PROJECT } from "../../graphql/query/Query";
 
 export default function CreateProject() {
   const formData = {
     name: "",
     creator: "",
     target: 0,
-    startDate: "",
-    endDate: "",
+    startdate: "",
+    dateline: "",
   };
 
   const [data, setData] = useState(formData);
+  const [insertProject, { loading }] = useMutation(INSERT_DATA_PROJECT_BY_ID, {
+    refetchQueries: [GET_DATA_PROJECT],
+  });
 
   let navigate = useNavigate();
+
+  if (loading) {
+    return "Loading...";
+  }
 
   const handleBack = () => {
     navigate(-1);
@@ -22,6 +32,21 @@ export default function CreateProject() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    insertProject({
+      variables: {
+        object: {
+          name: data.name,
+          creator: data.creator,
+          startdate: data.startdate,
+          dateline: data.dateline,
+          target: data.target,
+        },
+      },
+    });
   };
 
   return (
@@ -68,19 +93,22 @@ export default function CreateProject() {
             <InputForm
               label={"Start Date"}
               type={"date"}
-              name={"startDate"}
-              value={data.startDate}
+              name={"startdate"}
+              value={data.startdate}
               onChange={handleChange}
             />
             <InputForm
               label={"End Date"}
               type={"date"}
-              name={"endDate"}
-              value={data.endDate}
+              name={"dateline"}
+              value={data.dateline}
               onChange={handleChange}
             />
           </div>
-          <button className="w-full bg-green-500 py-2 text-lg text-white font-bold rounded-xl mt-3 hover:bg-green-400 transition-all">
+          <button
+            onClick={handleSubmit}
+            className="w-full bg-green-500 py-2 text-lg text-white font-bold rounded-xl mt-3 hover:bg-green-400 transition-all"
+          >
             Create
           </button>
         </div>
