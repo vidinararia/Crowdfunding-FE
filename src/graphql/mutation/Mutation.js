@@ -7,3 +7,11 @@ export const INSERT_DATA_PROJECT_BY_ID = gql`
     }
   }
 `;
+
+export const DELETE_DATA_PROJECT_BY_ID = gql`
+  mutation MyMutation($id: Int!) {
+    delete_project_by_pk(id: $id) {
+      id
+    }
+  }
+`;
