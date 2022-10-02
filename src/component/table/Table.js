@@ -1,7 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Table = ({ column, data, classDelete, classView }) => {
+export const Table = ({
+  column,
+  data,
+  viewHidden,
+  deleteHidden,
+  donateHidden,
+}) => {
   const IDRConvert = Intl.NumberFormat("id-ID");
 
   let navigate = useNavigate();
@@ -39,12 +45,27 @@ export const Table = ({ column, data, classDelete, classView }) => {
               </td>
               <td className="w-52 text-center p-2">
                 <button
-                  className={classView}
-                  onClick={() => navigate(`/detail-project/${col.id}`)}
+                  hidden={viewHidden}
+                  className="py-1 px-3 bg-blue-300 hover:bg-blue-500 hover:shadow text-white rounded transition-all"
+                  onClick={() =>
+                    navigate(`/my-project/detail-project/${col.id}`)
+                  }
                 >
                   View
                 </button>
-                <button className={classDelete}>Delete</button>
+                <button
+                  hidden={deleteHidden}
+                  className="py-1 px-3 bg-red-400 hover:bg-red-500 hover:shadow text-white rounded ml-1 transition-all"
+                >
+                  Delete
+                </button>
+                <button
+                  hidden={donateHidden}
+                  className="py-1 px-3 bg-green-400 hover:bg-green-500 hover:shadow text-white rounded ml-1 transition-all"
+                  onClick={() => navigate(`/donate-project/${col.id}`)}
+                >
+                  Donate
+                </button>
               </td>
             </tr>
           ))}

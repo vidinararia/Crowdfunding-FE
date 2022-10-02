@@ -22,6 +22,7 @@ export const GET_DATA_PROJECT_BY_ID = gql`
       total
       startdate
       dateline
+      creator
     }
   }
 `;

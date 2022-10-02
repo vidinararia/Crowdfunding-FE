@@ -43,14 +43,7 @@ export default function Dashboard() {
           >
             Create Project
           </button>
-          <Table
-            column={column}
-            data={data}
-            classView={
-              "py-1 px-3 bg-blue-300 hover:bg-blue-500 hover:shadow text-white rounded transition-all"
-            }
-            classDelete={"hidden"}
-          />
+          <Table column={column} data={data} deleteHidden viewHidden />
         </div>
       </div>
     </>

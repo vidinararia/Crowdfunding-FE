@@ -5,6 +5,7 @@ import { InputForm } from "../../component/input-form/InputForm";
 export default function CreateProject() {
   const formData = {
     name: "",
+    creator: "",
     target: 0,
     startDate: "",
     endDate: "",
@@ -40,11 +41,19 @@ export default function CreateProject() {
             Fill this form to create project.
           </p>
           <InputForm
-            label={"Name"}
-            placeholder={"Name"}
+            label={"Project Name"}
+            placeholder={"Project Name"}
             type={"text"}
             name={"name"}
             value={data.name}
+            onChange={handleChange}
+          />
+          <InputForm
+            label={"Creator Name"}
+            placeholder={"Creator Name"}
+            type={"text"}
+            name={"creator"}
+            value={data.creator}
             onChange={handleChange}
           />
           <InputForm
