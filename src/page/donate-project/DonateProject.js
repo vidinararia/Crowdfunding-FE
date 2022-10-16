@@ -95,7 +95,7 @@ export default function DonateProject() {
             Donate how much do you want for this project.
           </p>
           <InputForm
-            type={"text"}
+            type={"number"}
             name={"total"}
             label={"Donate"}
             placeholder={"Rp. 10.000"}

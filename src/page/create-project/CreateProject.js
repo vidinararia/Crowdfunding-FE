@@ -84,7 +84,7 @@ export default function CreateProject() {
           <InputForm
             label={"Target"}
             placeholder={"Rp. 1.000.000"}
-            type={"text"}
+            type={"number"}
             name={"target"}
             value={data.target}
             onChange={handleChange}
