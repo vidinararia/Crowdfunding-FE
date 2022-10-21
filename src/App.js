@@ -9,6 +9,7 @@ import Register from "./page/register/Register";
 import CreateProject from "./page/create-project/CreateProject";
 import DetailProject from "./page/detail-project/DetailProject";
 import DonateProject from "./page/donate-project/DonateProject";
+import NotFound from "./page/not-found/NotFound";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/my-project" element={<MyProject />} />
         <Route path="/history" element={<History />} />
         <Route path="/create-project" element={<CreateProject />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
