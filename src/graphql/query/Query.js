@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_DATA_PROJECT = gql`
   query MyQuery {
-    project {
+    project(order_by: { id: desc }) {
       id
       name
       target
