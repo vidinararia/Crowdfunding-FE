@@ -1,29 +1,20 @@
-import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputForm } from "../../component/input-form/InputForm";
-import { INSERT_DATA_PROJECT_BY_ID } from "../../graphql/mutation/Mutation";
-import { GET_DATA_PROJECT } from "../../graphql/query/Query";
 
 export default function CreateProject() {
   const formData = {
     name: "",
     creator: "",
     target: 0,
+    amount: 0,
     startdate: "",
     dateline: "",
   };
 
   const [data, setData] = useState(formData);
-  const [insertProject, { loading }] = useMutation(INSERT_DATA_PROJECT_BY_ID, {
-    refetchQueries: [GET_DATA_PROJECT],
-  });
 
   let navigate = useNavigate();
-
-  if (loading) {
-    return "Loading...";
-  }
 
   const handleBack = () => {
     navigate(-1);
@@ -36,17 +27,7 @@ export default function CreateProject() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    insertProject({
-      variables: {
-        object: {
-          name: data.name,
-          creator: data.creator,
-          startdate: data.startdate,
-          dateline: data.dateline,
-          target: data.target,
-        },
-      },
-    });
+    console.log(data);
   };
 
   return (

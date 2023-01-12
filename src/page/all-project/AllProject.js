@@ -1,23 +1,20 @@
-import { useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../component/navbar/Navbar";
 import { Table } from "../../component/table/Table";
-import { GET_DATA_PROJECT } from "../../graphql/query/Query";
 
 export default function Dashboard() {
   let navigate = useNavigate();
 
-  const { loading, error, data } = useQuery(GET_DATA_PROJECT);
-
-  if (loading) {
-    return "Loading...";
-  }
-
-  if (error) {
-    alert("Error");
-    return null;
-  }
+  const [data, setData] = useState([
+    {
+      name: "project1",
+      target: "100000",
+      amount: "0",
+      startdate: "2022-10-02",
+      dateline: "2022-10-02",
+    },
+  ]);
 
   const handleCreate = () => {
     navigate("/create-project");
@@ -26,7 +23,7 @@ export default function Dashboard() {
   const column = [
     { field: "name", header: "Name" },
     { field: "target", header: "Target" },
-    { field: "total", header: "Total" },
+    { field: "amount", header: "Amount" },
     { field: "startdate", header: "Start Date" },
     { field: "dateline", header: "Dateline" },
   ];

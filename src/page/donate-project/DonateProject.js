@@ -1,12 +1,7 @@
-import { useMutation, useQuery } from "@apollo/client";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { InputForm } from "../../component/input-form/InputForm";
-import { UPDATE_DATA_PROJECT_BY_ID } from "../../graphql/mutation/Mutation";
-import {
-  GET_DATA_PROJECT,
-  GET_DATA_PROJECT_BY_ID,
-} from "../../graphql/query/Query";
+import NotFound from "../not-found/NotFound";
 
 export default function DonateProject() {
   let navigate = useNavigate();
@@ -15,27 +10,9 @@ export default function DonateProject() {
   const IDRConvert = Intl.NumberFormat("id-ID");
   const params = useParams();
   const { id } = params;
-  const { loading, error, data } = useQuery(GET_DATA_PROJECT_BY_ID, {
-    variables: { id },
-  });
-  const [updateTotal, { loading: loadingUpdate }] = useMutation(
-    UPDATE_DATA_PROJECT_BY_ID,
-    { refetchQueries: [GET_DATA_PROJECT] }
-  );
-
-  const col = data?.project_by_pk;
 
   if (isNaN(id)) {
-    return "Not Found";
-  }
-
-  if (loading || loadingUpdate) {
-    return "Loading...";
-  }
-
-  if (error) {
-    alert("Error");
-    return null;
+    return <NotFound />;
   }
 
   const handleBack = () => {
@@ -48,12 +25,6 @@ export default function DonateProject() {
 
   const handleDonate = (e) => {
     e.preventDefault();
-    updateTotal({
-      variables: {
-        id: col.id,
-        total: donate.total,
-      },
-    });
   };
 
   return (
@@ -68,27 +39,27 @@ export default function DonateProject() {
       </div>
       <div className="flex items-center justify-center md:p-0 bg-gray-200 p-5">
         <div className="bg-white px-5 pt-10 pb-5 md:px-5 rounded-xl shadow-md">
-          <h1 className="text-3xl font-bold mb-2">{col.name}</h1>
+          <h1 className="text-3xl font-bold mb-2">name</h1>
           <div className="md:grid md:grid-cols-3 md:gap-4 gap-0">
             <h1 className="mb-1">
               <div className="font-semibold text-gray-400">Start Date:</div>
-              {col.startdate}
+              2022-10-02
             </h1>
             <h1 className="mb-1 md:col-span-2 col-span-1">
               <div className="font-semibold text-gray-400">Dateline:</div>
-              {col.dateline}
+              2022-10-02
             </h1>
             <h1 className="mb-1">
               <div className="font-semibold text-gray-400">Target:</div>
-              {"Rp. " + IDRConvert.format(col.target)}
+              {"Rp. " + IDRConvert.format("10000")}
             </h1>
             <h1 className="mb-1 md:col-span-2 col-span-1">
-              <div className="font-semibold text-gray-400">Total:</div>
-              {"Rp. " + IDRConvert.format(col.total)}
+              <div className="font-semibold text-gray-400">Amount:</div>
+              {"Rp. " + IDRConvert.format("0")}
             </h1>
             <div className="border rounded p-5 md:col-span-3 col-span-1">
               <div className="font-semibold text-gray-400">Creator Name</div>
-              <span className="text-xl">{col.creator}</span>
+              <span className="text-xl">creator</span>
             </div>
           </div>
           <p className="text-gray-400 mt-3 mb-2">
