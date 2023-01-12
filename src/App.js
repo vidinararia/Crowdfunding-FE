@@ -21,7 +21,7 @@ function App() {
         <Route path="/" element={<AllProject />} />
         <Route path="/donate-project/:id" element={<DonateProject />} />
         <Route
-          path="/my-project/detail-project/:id"
+          path="/my-project/detail-project/:funding_id"
           element={<DetailProject />}
         />
         <Route path="/my-project" element={<MyProject />} />
