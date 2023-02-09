@@ -41,7 +41,7 @@ export default function MyProject() {
             className="bg-green-500 rounded hover:bg-green-600 text-white font-semibold md:py-2 md:px-6 px-4 py-2 mb-3 transition-all"
             onClick={handlePageCreate}
           >
-            Create Project
+            Create Funding
           </button>
           <Table column={column} data={data} deleteHidden donateHidden />
         </div>

@@ -77,7 +77,7 @@ export default function DetailProject() {
       </div>
       <div className="flex items-center justify-center md:p-0 bg-gray-200 p-5">
         <div className="bg-white px-5 pt-5 pb-5 md:px-5 rounded-xl shadow-md">
-          <h1 className="text-3xl font-bold mb-2">Donate</h1>
+          <h1 className="text-3xl font-bold mb-2">{"Funding " + funding_id}</h1>
           <div className="grid grid-cols-3 gap-4">
             <div className="border rounded p-5 col-span-3">
               <div className="font-semibold text-gray-400">Total Donation:</div>
