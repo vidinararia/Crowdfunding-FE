@@ -59,9 +59,7 @@ export const Table = ({
                 <button
                   hidden={viewHidden}
                   className="py-1 px-3 bg-blue-300 hover:bg-blue-500 hover:shadow text-white rounded transition-all"
-                  onClick={() =>
-                    navigate(`/my-project/detail-project/${col.funding_id}`)
-                  }
+                  onClick={() => navigate(`/detail-project/${col.funding_id}`)}
                 >
                   View
                 </button>

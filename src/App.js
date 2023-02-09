@@ -18,13 +18,10 @@ function App() {
         {/* <Route path="/" element={<Home />} /> */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/" element={<AllProject />} />
+        {/* <Route path="/" element={<AllProject />} /> */}
         <Route path="/donate-project/:id" element={<DonateProject />} />
-        <Route
-          path="/my-project/detail-project/:funding_id"
-          element={<DetailProject />}
-        />
-        <Route path="/my-project" element={<MyProject />} />
+        <Route path="/detail-project/:funding_id" element={<DetailProject />} />
+        <Route path="/" element={<MyProject />} />
         <Route path="/history" element={<History />} />
         <Route path="/create-project" element={<CreateProject />} />
         <Route path="*" element={<NotFound />} />

@@ -1,18 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { InputForm } from "../../component/input-form/InputForm";
+import axios from "axios";
+import { baseApi } from "../../utils/api/Api";
 
 export default function CreateProject() {
-  const formData = {
-    name: "",
-    creator: "",
-    target: 0,
-    amount: 0,
-    startdate: "",
-    dateline: "",
-  };
-
-  const [data, setData] = useState(formData);
+  const [amount, setAmount] = useState(0);
 
   let navigate = useNavigate();
 
@@ -20,15 +13,25 @@ export default function CreateProject() {
     navigate(-1);
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData({ ...data, [name]: value });
+  const handeAmount = (e) => {
+    setAmount(Number(e.target.value));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(data);
   };
+
+  useEffect(() => {
+    axios
+      .get(baseApi + "all-chain")
+      .then((res) => {
+        // setData(res.data.data);
+        console.log(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div className="bg-gray-200 h-screen">
@@ -42,53 +45,18 @@ export default function CreateProject() {
       </div>
       <div className="flex items-center justify-center bg-gray-200 py-5">
         <div className="bg-white px-5 py-10 md:px-10 rounded-xl shadow-md">
-          <h1 className="text-3xl font-bold mb-2">Create Project</h1>
-          <p className="text-gray-400 mb-5">
-            Fill this form to create project.
-          </p>
+          <h1 className="text-3xl font-bold mb-2">Create Funding</h1>
           <InputForm
-            label={"Project Name"}
-            placeholder={"Project Name"}
-            type={"text"}
-            name={"name"}
-            value={data.name}
-            onChange={handleChange}
-          />
-          <InputForm
-            label={"Creator Name"}
-            placeholder={"Creator Name"}
-            type={"text"}
-            name={"creator"}
-            value={data.creator}
-            onChange={handleChange}
-          />
-          <InputForm
-            label={"Target"}
+            label={"Amount"}
             placeholder={"Rp. 1.000.000"}
             type={"number"}
-            name={"target"}
-            value={data.target}
-            onChange={handleChange}
+            name={"amount"}
+            value={amount}
+            onChange={handeAmount}
           />
-          <div className="md:grid md:grid-cols-2 md:gap-2">
-            <InputForm
-              label={"Start Date"}
-              type={"date"}
-              name={"startdate"}
-              value={data.startdate}
-              onChange={handleChange}
-            />
-            <InputForm
-              label={"End Date"}
-              type={"date"}
-              name={"dateline"}
-              value={data.dateline}
-              onChange={handleChange}
-            />
-          </div>
           <button
             onClick={handleSubmit}
-            className="w-full bg-green-500 py-2 text-lg text-white font-bold rounded-xl mt-3 hover:bg-green-400 transition-all"
+            className="md:w-80 w-full bg-green-500 py-2 text-lg text-white font-bold rounded-xl mt-3 hover:bg-green-400 transition-all"
           >
             Create
           </button>

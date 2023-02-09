@@ -42,7 +42,7 @@ export default function Navbar() {
           }`}
         >
           {Links.map((link) => (
-            <li key={link.name} className="md:ml-2 text-lg md:my-0 my-7">
+            <li key={link.name} className="hidden md:ml-2 text-lg md:my-0 my-7">
               <Link
                 to={link.link}
                 className="text-white hover:bg-green-600 rounded-md transition-all font-medium py-2 px-3"
@@ -55,7 +55,7 @@ export default function Navbar() {
             className="hidden bg-transparent hover:bg-white border border-white hover:border-transparent text-white hover:text-black py-2 px-6 rounded-md font-bold md:ml-6 transition-all"
             onClick={handleLogin}
           >
-            Login
+            Logout
           </button>
           <button
             className="hidden bg-teal-600 text-white hover:shadow-md py-2 px-6 rounded-md font-bold md:ml-4 ml-4 transition-all"
