@@ -26,6 +26,13 @@ export default function CreateProject() {
       .get(baseApi + "all-chain")
       .then((res) => {
         // setData(res.data.data);
+        let listFund = new Map([]);
+        const data = res.data.data;
+        data?.map((item) => {
+          listFund.set(item.funding_id, "ada");
+        });
+        const result = myMap.has(2);
+        console.log(result);
         console.log(res.data.data);
       })
       .catch((err) => {
