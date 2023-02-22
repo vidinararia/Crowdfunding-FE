@@ -6,6 +6,7 @@ import NotFound from "../not-found/NotFound";
 import { Card } from "../../component/card/Card";
 import { InputForm } from "../../component/input-form/InputForm";
 import Swal from "sweetalert2";
+import { Select } from "../../component/select/Select";
 
 export default function DetailProject() {
   let navigate = useNavigate();
@@ -16,9 +17,9 @@ export default function DetailProject() {
   const IDRConvert = Intl.NumberFormat("id-ID");
 
   const [amount, setAmount] = useState(0);
+  const [selectId, setSelectId] = useState(0);
   const [dataRaised, setDataRaised] = useState([]);
   const [dataFunder, setDataFunder] = useState([]);
-  const [error, setError] = useState({});
 
   useEffect(() => {
     axios
@@ -40,25 +41,49 @@ export default function DetailProject() {
     navigate(-1);
   };
 
-  const handeAmount = (e) => {
+  const handleAmount = (e) => {
     setAmount(Number(e.target.value));
+  };
+
+  const handleSelect = (e) => {
+    setSelectId(Number(e.target.value));
   };
 
   const handleDonate = (e) => {
     e.preventDefault();
+    if (amount < 500) {
+      Swal.fire({
+        icon: "error",
+        title: "Error...",
+        text: "Minimun donate Rp. 500",
+        showConfirmButton: true,
+      });
+      return;
+    }
+    if (selectId === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Error...",
+        text: "Select Id",
+        showConfirmButton: true,
+      });
+      return;
+    }
     axios
       .post(baseApi + "send-fund", {
-        user_id: 2,
+        user_id: selectId,
         funding_id: fund,
         amount: amount,
       })
-      .then((res) => {
+      .then(() => {
         Swal.fire({
           icon: "success",
           title: "Success...",
           text: "Thank for funding",
+          showConfirmButton: true,
+        }).then(() => {
+          window.location.reload(false);
         });
-        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -91,12 +116,13 @@ export default function DetailProject() {
           </p>
           <InputForm
             type={"number"}
-            name={"total"}
-            label={"Amount"}
+            name={"donate"}
+            label={"Donate"}
             placeholder={"Rp. 10.000"}
             value={amount}
-            onChange={handeAmount}
+            onChange={handleAmount}
           />
+          <Select value={selectId} onChange={handleSelect} />
           <button
             onClick={handleDonate}
             className="w-full bg-green-500 py-2 text-lg text-white font-bold rounded-xl mt-3 hover:bg-green-400 transition-all"
@@ -105,16 +131,17 @@ export default function DetailProject() {
           </button>
         </div>
       </div>
-      <div className="">
-        <h1 className="text-xl font-bold mb-3 px-5 md:px-16">Funder</h1>
-      </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 sm:grid-cols-2 p-5 md:px-16 bg-gray-200">
-        {dataFunder.map((item) => (
-          <Card
-            user_id={item?.user_id}
-            raise_by_funder={item?.raised_by_funder}
-          />
-        ))}
+      <div>
+        <h1 className="text-xl font-bold px-5 md:px-16">Funder</h1>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 sm:grid-cols-2 p-5 md:px-16 bg-gray-200">
+          {dataFunder.map((item) => (
+            <Card
+              key={item.user_id}
+              user_id={item?.user_id}
+              raise_by_funder={item?.raised_by_funder}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
