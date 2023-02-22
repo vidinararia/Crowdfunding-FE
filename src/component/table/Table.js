@@ -45,7 +45,7 @@ export const Table = ({
         </thead>
         <tbody>
           {currenItems.map((col) => (
-            <tr key={col.id} className="bg-white border border-gray-300 ">
+            <tr className="bg-white border border-gray-300 ">
               <td className="p-3 text-sm whitespace-nowrap font-medium text-gray-700">
                 {col.user_id}
               </td>
@@ -82,6 +82,18 @@ export const Table = ({
           ))}
         </tbody>
       </table>
+      {data.length === 0 && (
+        <div className="flex items-center justify-center">
+          <div className="grid grid-cols-1">
+            <img
+              src="/assets/siemayer-doodle-trans.png"
+              alt="notFound"
+              className="object-contain h-[179px] w-[179px]"
+            />
+            <p className="font-bold text-center text-2xl">Data empty</p>
+          </div>
+        </div>
+      )}
       <ReactPaginate
         breakLabel="..."
         nextLabel={"next >"}

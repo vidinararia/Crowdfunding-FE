@@ -11,7 +11,7 @@ export const InputForm = ({
 }) => {
   return (
     <div hidden={hidden}>
-      <label className="text-gray-500">{label}</label>
+      <div className="text-gray-500">{label}</div>
       <input
         className="w-full py-2 px-3 mt-1 outline-none mb-4 rounded-lg border-2 border-gray-200 hover:border-purple-300 focus:border-purple-300"
         type={type}
